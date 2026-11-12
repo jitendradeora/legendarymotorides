@@ -27,3 +27,4 @@ export default async function Page({
   if (!articles.some((item) => item.slug === slug)) notFound()
   return <GuideDetailPage slug={slug} />
 }
+
