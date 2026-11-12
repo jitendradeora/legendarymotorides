@@ -160,10 +160,7 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="hero-index">
-            <span>Scroll to explore</span>
-            <i />
-          </div>
+         
         </section>
 
         <section className="intro section-light">
