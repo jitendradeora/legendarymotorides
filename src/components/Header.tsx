@@ -44,7 +44,7 @@ export default function Header({ variant = "page" }: { variant?: "home" | "page"
             onClick={() => setOpen(!open)}
             type="button"
           >
-            <Icon name={open ? "close" : "menu"} size={25} />
+            <Icon name={open ? "close" : "menu"} size={32} />
           </button>
         </div>
       </header>
@@ -73,7 +73,7 @@ export default function Header({ variant = "page" }: { variant?: "home" | "page"
           aria-label={open ? "Close navigation" : "Open navigation"}
           onClick={() => setOpen(!open)}
         >
-          <Icon name={open ? "close" : "menu"} />
+          <Icon name={open ? "close" : "menu"} size={32} />
         </button>
       </div>
     </header>

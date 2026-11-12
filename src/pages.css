@@ -261,7 +261,7 @@
   .page-nav-open .social-links-compact { border-top: 1px solid var(--color-border); display: flex; gap: .7rem 1rem; margin-top: auto; padding-top: 1.5rem; }
   .page-nav-open .social-links-compact a { border: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 0; height: 40px; padding: 0; width: 40px; }
   .page-header-cta { margin-left: auto; }
-  .page-menu { display: grid; margin-left: .8rem; padding: .7rem; position: relative; z-index: 32; }
+  .page-menu { display: grid; margin-left: .8rem; min-height: 32px; min-width: 32px; padding: 0; place-items: center; position: relative; z-index: 32; }
   .page-header-inner { padding-left: calc(var(--page-gutter) + 6.5rem); }
   .listing-intro-grid, .detail-grid, .journey-overview, .destination-grid-heading, .team-heading, .form-page-grid, .contact-grid { grid-template-columns: 1fr; }
   .route-card-grid { grid-template-columns: 1fr; }
@@ -282,6 +282,7 @@
 
 @media (max-width: 640px) {
   .page-header-cta { display: none; }
+  .page-menu { margin-left: auto; }
   .subhero, .subhero-content { min-height: 580px; }
   .subhero h1, .listing-intro h1, .not-found h1 { font-size: clamp(2.6rem, 12.5vw, 3.8rem); }
   .route-card { display: block; }
