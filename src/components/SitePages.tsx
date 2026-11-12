@@ -502,7 +502,7 @@ function PolicyPage({ policy }: { policy: (typeof policies)[keyof typeof policie
         <div className="policy-inner">
           <div className="policy-notice"><Icon name="shield" /><p>This page is a clear website summary. The written proposal and booking terms issued for your specific tour contain the applicable commercial details.</p></div>
           {policy.sections.map(([heading, body], index) => <section key={heading}><span>0{index + 1}</span><div><h2>{heading}</h2><p>{body}</p></div></section>)}
-          <Conversion title="Need a policy clarified?" />
+          
         </div>
       </article>
     </Shell>
