@@ -22,7 +22,6 @@ export type Tour = {
   season?: string
   ridingDays?: string
   accommodation?: string
-  ridingLevel?: string
   terrain?: string
   dailyRide?: string
   groupSize?: string
@@ -163,7 +162,6 @@ export const tours: Tour[] = [
     season: "June to September",
     ridingDays: "8 days",
     accommodation: "3-star & 4-star hotels, camps and homestays",
-    ridingLevel: "Intermediate",
     terrain: "70% tarmac · 30% gravel",
     dailyRide: "5–7 hours on average",
     groupSize: "Maximum 10 riders",

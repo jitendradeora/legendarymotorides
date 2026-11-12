@@ -149,7 +149,7 @@ export function TourDetailPage({ slug }: { slug: string }) {
       <section className="detail-section section-light">
         <div className="container">
           <Breadcrumbs items={[{ label: "Motorcycle tours", to: "/motorcycle-tours" }, { label: tour.name }]} />
-          <div className="tour-facts"><div><small>Duration</small><strong>{tour.duration}</strong></div><div><small>Distance</small><strong>{tour.distance}</strong></div>{tour.ridingDays && <div><small>Riding days</small><strong>{tour.ridingDays}</strong></div>}{tour.season && <div><small>Best time</small><strong>{tour.season}</strong></div>}<div><small>Price</small><strong>{tour.price}</strong></div>{tour.ridingLevel && <div><small>Riding level</small><strong>{tour.ridingLevel}</strong></div>}<div><small>Format</small><strong>Guided journey</strong></div></div>
+          <div className="tour-facts"><div><small>Duration</small><strong>{tour.duration}</strong></div><div><small>Distance</small><strong>{tour.distance}</strong></div>{tour.ridingDays && <div><small>Riding days</small><strong>{tour.ridingDays}</strong></div>}{tour.season && <div><small>Best time</small><strong>{tour.season}</strong></div>}<div><small>Price</small><strong>{tour.price}</strong></div></div>
           <section className="journey-overview">
             <div className="journey-overview-copy">              
               <p className="eyebrow"><span />Journey overview</p>
