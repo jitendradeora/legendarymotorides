@@ -312,6 +312,38 @@ export const articles: Article[] = [
   },
 ]
 
+export const faqs = [
+  ["Do I need to bring my own motorcycle?", "No. Guided journeys can include a Royal Enfield motorcycle. The exact model, support arrangements, and what is included are confirmed in your tour proposal."],
+  ["How experienced do I need to be?", "Riding demands vary by route. Tell us about your road, off-road, and high-altitude experience and we will help you choose an appropriate journey."],
+  ["Can you create a private itinerary?", "Yes. Private motorcycle holidays can be designed around your preferred destination, dates, group size, pace, and accommodation style."],
+  ["When are Himalayan routes open?", "Opening dates depend on snow, weather, road conditions, and local permissions. We verify operating conditions before confirming a high-altitude itinerary."],
+  ["Is an enquiry a confirmed booking?", "No. A booking becomes binding only when Legendary Moto Rides issues written confirmation and the payment requirements in that proposal have been met."],
+  ["Do I need insurance?", "Riders need the licences, visas, insurance, and fitness required for the confirmed journey. Personal medical and motorcycle travel insurance stays with the rider unless a written proposal says otherwise."],
+  ["Can a passenger come along?", "Some journeys can include a pillion. Luggage and passenger support are confirmed in the written proposal for that departure."],
+  ["Who confirms permits and the final route?", "The team reconfirms mountain access, permits, and operating conditions before a booking is accepted. The road captain may adjust the route for safety, weather, or access."],
+] as const
+
+export const videoTestimonials = [
+  {
+    id: "GPXRRCApM1s",
+    title: "Himachal motorcycle tour review",
+    rider: "Rider from Switzerland",
+    place: "Himachal Pradesh",
+  },
+  {
+    id: "uibYB6qiTNk",
+    title: "High Himalayan expedition",
+    rider: "Riders from Australia",
+    place: "Ladakh · Umling La",
+  },
+  {
+    id: "VZjG6XP1nK0",
+    title: "Royal roads of Rajasthan",
+    rider: "Riders from France",
+    place: "Rajasthan",
+  },
+]
+
 export const galleryImages = [
   { src: "/images/hero-rider.webp", alt: "Motorcyclist riding through a Himalayan valley", caption: "High roads" },
   { src: "/images/ladakh.webp", alt: "A high-altitude road in Ladakh", caption: "Ladakh" },

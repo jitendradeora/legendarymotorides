@@ -4,8 +4,9 @@ import { FormEvent, useState } from "react"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import MoveToTop from "./components/MoveToTop"
+import VideoTestimonials from "./components/VideoTestimonials"
 import { Icon } from "./icons"
-import { getFaqSchema, serializeSchema } from "./lib/schema"
+import { faqs } from "./lib/content"
 import { siteConfig } from "./lib/site-config"
 
 const destinations = [
@@ -62,25 +63,6 @@ const tours = [
   },
 ]
 
-const faqs = [
-  [
-    "Do I need to bring my own motorcycle?",
-    "No. Our guided journeys can include a Royal Enfield motorcycle. The exact model, support arrangements, and what is included are confirmed in your tour proposal.",
-  ],
-  [
-    "How experienced do I need to be?",
-    "Riding demands vary by route. Tell us about your road, off-road, and high-altitude experience and we will help you choose an appropriate journey.",
-  ],
-  [
-    "Can you create a private itinerary?",
-    "Yes. Private and customized motorcycle holidays can be designed around your preferred destination, dates, group size, pace, and accommodation style.",
-  ],
-  [
-    "When are Himalayan routes open?",
-    "Opening dates depend on snow, weather, road conditions, and local permissions. We verify operating conditions before confirming a high-altitude itinerary.",
-  ],
-]
-
 function Eyebrow({
   children,
   light = false,
@@ -123,10 +105,6 @@ function App() {
 
   return (
     <div id="top">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeSchema(getFaqSchema(faqs)) }}
-      />
       <Header variant="home" />
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -381,7 +359,22 @@ function App() {
                 <article><span>03</span><p>“Thank you Team LMR for making our trip full of awesome memories. We had an incredible time in incredible India.”</p><div className="quote-credit"><strong>Philip</strong><span>Canada · Rajasthan tour</span></div></article>
               </div>
             </div>
-            <a className="testimonial-source" href={siteConfig.socialLinks[0].url} target="_blank" rel="noreferrer">Read more traveller feedback on Tripadvisor <Icon name="arrow" /></a>
+            <div className="review-row">
+              <span>Leave a review</span>
+              {siteConfig.reviewLinks.map((review) => (
+                <a key={review.name} href={review.url} target="_blank" rel="noopener noreferrer" aria-label={review.name}>
+                  <Icon name={review.icon} size={18} />
+                </a>
+              ))}
+            </div>
+            <div className="video-testimonials" id="video-testimonials">
+              <div className="testimonial-heading">
+                <div><Eyebrow light>On film</Eyebrow><h2>Riders, in their<br />own <em>words.</em></h2></div>
+                <p>Films from the road, published by riders who travelled with the team.</p>
+              </div>
+              <VideoTestimonials />
+              <a className="testimonial-source" href={siteConfig.socialLinks[3].url} target="_blank" rel="noreferrer">More rider films on YouTube <Icon name="arrow" /></a>
+            </div>
           </div>
         </section>
 
@@ -449,13 +442,13 @@ function App() {
               <p>
                 Still curious? Our team is happy to talk through the details.
               </p>
-              <a className="text-link" href={`mailto:${siteConfig.email}`}>
-                Ask us anything <Icon name="arrow" size={18} />
+              <a className="text-link" href="/faq">
+                All rider questions <Icon name="arrow" size={18} />
               </a>
             </div>
             <div className="faq-list">
-              {faqs.map(([question, answer]) => (
-                <details key={question}>
+              {faqs.slice(0, 4).map(([question, answer]) => (
+                <details key={question} name="rider-questions">
                   <summary>
                     {question}
                     <span>+</span>

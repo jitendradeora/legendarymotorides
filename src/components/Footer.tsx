@@ -70,6 +70,7 @@ export default function Footer() {
               <a href="/custom-tours">Custom tours</a>
               <a href="/insights">Insights</a>
               <a href="/gallery">Gallery</a>
+              <a href="/faq">FAQ</a>
               <a href="/about">About us</a>
             </div>
             <div className="footer-nav">

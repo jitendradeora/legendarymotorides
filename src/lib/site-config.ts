@@ -17,6 +17,10 @@ export const siteConfig = {
   alternateEmail: "legendarymotorides@gmail.com",
   phones: ["+91 98714 83018", "+91 99718 60718"],
   phoneLinks: ["tel:+919871483018", "tel:+919971860718"],
+  reviewLinks: [
+    social("Review on Google", "google", "https://share.google/G0OISIDeT6aS8rxSu"),
+    social("Review on Tripadvisor", "tripadvisor", "https://www.tripadvisor.in/Attraction_Review-g304551-d8818238-Reviews-Legendary_Moto_Rides-New_Delhi_National_Capital_Territory_of_Delhi.html"),
+  ],
   socialLinks: [
     social("Tripadvisor", "tripadvisor", "https://www.tripadvisor.in/Attraction_Review-g304551-d8818238-Reviews-Legendary_Moto_Rides-New_Delhi_National_Capital_Territory_of_Delhi.html"),
     social("Facebook", "facebook", "https://www.facebook.com/LegendaryMotoRides/"),

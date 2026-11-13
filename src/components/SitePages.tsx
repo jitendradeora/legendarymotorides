@@ -7,8 +7,8 @@ import Header from "./Header"
 import MoveToTop from "./MoveToTop"
 import { Icon, RouteMap } from "../icons"
 import { calendarMonths, teamMembers } from "../lib/company-content"
-import { articles, destinations, galleryImages, tours } from "../lib/content"
-import { getArticleSchema, getBreadcrumbSchema, getTourSchema, serializeSchema } from "../lib/schema"
+import { articles, destinations, faqs, galleryImages, tours } from "../lib/content"
+import { getArticleSchema, getBreadcrumbSchema, getFaqSchema, getTourSchema, serializeSchema } from "../lib/schema"
 import { siteConfig } from "../lib/site-config"
 
 function Breadcrumbs({ items }: { items: { label: string; to?: string }[] }) {
@@ -300,7 +300,7 @@ export function TourCalendarPage() {
           <div className="calendar-overview"><div><span>2027</span><strong>{totalDepartures} departures</strong></div><p>Open a month, compare the departures, and join the ride that fits.</p></div>
           <div className="calendar-months">
             {calendarMonths.map((month, monthIndex) => (
-              <details className="calendar-month" key={month.month} open={monthIndex === 0}>
+              <details className="calendar-month" key={month.month} name="tour-calendar" open={monthIndex === 0}>
                 <summary><span>{String(monthIndex + 1).padStart(2, "0")}</span><strong>{month.month}</strong><small>{month.tours.length} departures</small><i>+</i></summary>
                 <div className="calendar-tours">
                   {month.tours.map((tour) => (
@@ -523,6 +523,30 @@ export function CancellationPage() {
 
 export function PrivacyPage() {
   return <PolicyPage policy={policies.privacy} />
+}
+
+export function FaqPage() {
+  const description = "Practical answers on motorcycles, riding experience, private journeys, Himalayan seasons, bookings, and what the team confirms before you ride."
+  return (
+    <Shell>
+      <JsonLd data={getFaqSchema(faqs)} />
+      <PageHero eyebrow="Good to know" title="Questions from fellow riders." description={description} image="/images/rider-road.webp" />
+      <section className="page-section section-light">
+        <div className="container">
+          <Breadcrumbs items={[{ label: "FAQ" }]} />
+          <div className="faq-list">
+            {faqs.map(([question, answer]) => (
+              <details key={question} name="rider-questions">
+                <summary>{question}<span>+</span></summary>
+                <p>{answer}</p>
+              </details>
+            ))}
+          </div>
+          <p className="faq-more">Still curious? Write to <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a> or <a href="/contact">contact the team</a>.</p>
+        </div>
+      </section>
+    </Shell>
+  )
 }
 
 export function NotFoundPage() {

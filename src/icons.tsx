@@ -2,6 +2,7 @@ export type IconName =
   | "arrow"
   | "close"
   | "facebook"
+  | "google"
   | "helmet"
   | "instagram"
   | "mail"
@@ -46,6 +47,9 @@ export function Icon({ name, size = 20 }: IconProps) {
         <circle cx="12" cy="12" r="3.5" />
         <circle cx="17.2" cy="6.8" r=".8" fill="currentColor" stroke="none" />
       </>
+    ),
+    google: (
+      <path d="M16.6 11.4H12v2.1h2.7a3.7 3.7 0 1 1-1.1-4" />
     ),
     helmet: (
       <>
