@@ -27,7 +27,7 @@ The app runs on port `8443` by default.
 
 Nothing on the site is hard-coded. All text, images, links and lists are loaded through WPGraphQL from the WordPress site in the parent folder (plugin: `wp-content/plugins/lmr-headless`).
 
-- Set `WORDPRESS_URL` and `REVALIDATE_SECRET` in `.env.local` (the URL defaults to `http://legendarymotoridesnew.test` in development only).
+- Set `WORDPRESS_URL` and `REVALIDATE_SECRET` in `.env.local` (the URL defaults to `http://213.210.36.12:8081`, set in `src/lib/wp.ts` and `next.config.ts`).
 - Pages are WordPress Pages edited through custom fields (no page editor). Repeating items are custom post types: destination, tour, departure, insight, team_member, faq, testimonial, video_testimonial.
 - Images live in the WordPress Media Library. Do not add images to `public/`.
 - To add a field: add it in the plugin's `inc/fields-*.php`, add it to `src/lib/queries.ts`, then use it in the component.

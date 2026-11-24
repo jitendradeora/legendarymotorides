@@ -1,9 +1,10 @@
 /** WordPress GraphQL client. All site content comes from WordPress; nothing is hard-coded in the frontend. */
 
-/** Set WORDPRESS_URL in .env.local. In local development it defaults to the Laragon WordPress site. */
+/** Default WordPress site. Override with WORDPRESS_URL in the environment (e.g. .env.local). */
+export const DEFAULT_WORDPRESS_URL = "http://213.210.36.12:8081"
+
 export function wordpressUrl() {
-  const fallback = process.env.NODE_ENV === "production" ? "" : "http://legendarymotoridesnew.test"
-  return (process.env.WORDPRESS_URL || fallback).replace(/\/$/, "")
+  return (process.env.WORDPRESS_URL || DEFAULT_WORDPRESS_URL).replace(/\/$/, "")
 }
 
 export function graphqlUrl() {

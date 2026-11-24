@@ -2,7 +2,7 @@ import type { NextConfig } from "next"
 
 /** All images are served from the WordPress media library. */
 function wordpressImagePattern() {
-  const raw = process.env.WORDPRESS_URL || (process.env.NODE_ENV === "production" ? "" : "http://legendarymotoridesnew.test")
+  const raw = process.env.WORDPRESS_URL || "http://213.210.36.12:8081"
   if (!raw) return []
   try {
     const url = new URL(raw)
