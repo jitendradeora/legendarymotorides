@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Shell from "@/components/Shell"
-import { Conversion, ListingIntro, TourRow } from "@/components/sections"
+import { Conversion, ListingIntro, TourList } from "@/components/sections"
 import { getFixedDeparturesPage, getSettings, getTours } from "@/lib/api"
 import { buildMetadata } from "@/lib/seo"
 
@@ -15,7 +15,7 @@ export default async function Page() {
       <ListingIntro intro={page.intro} homeLabel={settings.labels.home} />
       <section className="tour-list section-light">
         <div className="container">
-          {tours.map((tour) => <TourRow key={tour.slug} tour={tour} />)}
+          <TourList tours={tours} loadMoreLabel={settings.labels.loadMore} />
           <Conversion cta={page.cta} />
         </div>
       </section>

@@ -81,6 +81,7 @@ export type SiteSettings = {
     home: string
     exploreDestination: string
     readArticle: string
+    loadMore: string
     menuOpen: string
     menuClose: string
     moveTop: string
@@ -117,6 +118,7 @@ export type Tour = {
   slug: string
   title: string
   destination: { slug: string; title: string } | null
+  categories: { slug: string; name: string }[]
   place: string
   description: string
   image: Img

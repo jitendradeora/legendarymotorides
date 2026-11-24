@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import LoadMore from "@/components/LoadMore"
 import Shell from "@/components/Shell"
 import { Breadcrumbs, JsonLd, PageHero } from "@/components/sections"
 import { getFaqPage, getFaqs, getSettings } from "@/lib/api"
@@ -19,14 +20,14 @@ export default async function Page() {
       <section className="page-section section-light">
         <div className="container">
           <Breadcrumbs homeLabel={settings.labels.home} items={[{ label: page.breadcrumbLabel }]} />
-          <div className="faq-list">
+          <LoadMore className="faq-list" label={settings.labels.loadMore}>
             {faqs.map((faq) => (
               <details key={faq.question} name="rider-questions">
                 <summary>{faq.question}<span>+</span></summary>
                 <p>{faq.answer}</p>
               </details>
             ))}
-          </div>
+          </LoadMore>
           <p className="faq-more">
             {more.beforeEmail} <a href={`mailto:${settings.contact.email}`}>{settings.contact.email}</a> {more.between} <a href={more.linkUrl}>{more.linkLabel}</a>.
           </p>

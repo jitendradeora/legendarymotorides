@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import LoadMore from "@/components/LoadMore"
 import Shell from "@/components/Shell"
 import { Breadcrumbs, PageHero } from "@/components/sections"
 import { getGalleryPage, getSettings } from "@/lib/api"
@@ -17,14 +18,14 @@ export default async function Page() {
       <section className="gallery-page page-section section-light">
         <div className="container">
           <Breadcrumbs homeLabel={settings.labels.home} items={[{ label: page.breadcrumbLabel }]} />
-          <div className="gallery-grid">
+          <LoadMore className="gallery-grid" step={12} label={settings.labels.loadMore}>
             {(page.images ?? []).map((item, index) => (
               <figure className="gallery-card" key={`${index}-${src(item.image)}`}>
                 <img src={src(item.image)} alt={alt(item.image, item.caption)} />
                 <figcaption>{item.caption}</figcaption>
               </figure>
             ))}
-          </div>
+          </LoadMore>
         </div>
       </section>
     </Shell>

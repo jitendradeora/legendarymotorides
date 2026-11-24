@@ -26,10 +26,10 @@ export const getDestinations = cache(async (): Promise<Destination[]> => {
   return list(data.destinations).map((d) => ({ slug: d.slug, title: decode(d.title), ...d.destinationFields, relatedTours: list(d.destinationFields.relatedTours) }))
 })
 
-type RawTour = { slug: string; title: string; tourFields: Omit<Tour, "slug" | "title" | "destination"> & { destination: { slug: string; title: string }[] | null } }
+type RawTour = { slug: string; title: string; tourCategories: { slug: string; name: string }[] | null; tourFields: Omit<Tour, "slug" | "title" | "destination" | "categories"> & { destination: { slug: string; title: string }[] | null } }
 export const getTours = cache(async (): Promise<Tour[]> => {
   const data = await gql<{ tours: RawTour[] }>(TOURS_QUERY)
-  return list(data.tours).map((t) => ({ slug: t.slug, title: decode(t.title), ...t.tourFields, destination: list(t.tourFields.destination)[0] ? { slug: list(t.tourFields.destination)[0].slug, title: decode(list(t.tourFields.destination)[0].title) } : null }))
+  return list(data.tours).map((t) => ({ slug: t.slug, title: decode(t.title), ...t.tourFields, categories: list(t.tourCategories).map((c) => ({ slug: c.slug, name: decode(c.name) })), destination: list(t.tourFields.destination)[0] ? { slug: list(t.tourFields.destination)[0].slug, title: decode(list(t.tourFields.destination)[0].title) } : null }))
 })
 
 type RawInsight = { slug: string; title: string; insightFields: Omit<Insight, "slug" | "title"> }

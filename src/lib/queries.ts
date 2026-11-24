@@ -21,7 +21,7 @@ export const SETTINGS_QUERY = `{
     enquiryForm { nameLabel emailLabel destinationLabel destinationPlaceholder destinationUnsure ridersLabel datesLabel datesPlaceholder durationLabel durationPlaceholder experienceLabel experiencePlaceholder experienceOptions { text } accommodationLabel accommodationPlaceholder accommodationOptions { text } messageLabel submitLabel note successMessage errorMessage }
     joinForm { nameLabel emailLabel phoneLabel ridersLabel tourLabel departureLabel messageLabel submitLabel note successMessage errorMessage loadingLabel }
     forms { enquiryFormId joinFormId newsletterFormId }
-    labels { home exploreDestination readArticle menuOpen menuClose moveTop playVideo closeVideo }
+    labels { home exploreDestination readArticle loadMore menuOpen menuClose moveTop playVideo closeVideo }
     notFound { code title text buttonLabel buttonUrl }
     seoDefaults { title description shareImage { ${IMG} } locale themeColor googleVerification bingVerification gtmId metaPixelId }
   } }
@@ -32,7 +32,7 @@ const ORDER = "where: { orderby: { field: MENU_ORDER, order: ASC } }"
 const DESTINATION_FIELDS = `slug title destinationFields { region description season terrain image { ${IMG} } relatedTours { nodes { ... on Tour { slug } } } ${SEO} }`
 export const DESTINATIONS_QUERY = `{ destinations(first: 100, ${ORDER}) { nodes { ${DESTINATION_FIELDS} } } }`
 
-const TOUR_FIELDS = `slug title tourFields {
+const TOUR_FIELDS = `slug title tourCategories { nodes { name slug } } tourFields {
   destination { nodes { ... on Destination { slug title } } }
   place description image { ${IMG} } duration distance price season ridingDays accommodation terrain dailyRide groupSize
   departures { text } priceNotes { text } highlights { text }

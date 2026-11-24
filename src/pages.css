@@ -318,3 +318,11 @@
   .route-map-art ol { border-left: 0; border-top: 1px solid var(--color-border); gap: .7rem; padding: 1.2rem 0 0; }
   .tour-facts { grid-template-columns: 1fr 1fr; }
 }
+
+/* Tour categories and load more */
+.tour-category + .tour-category { margin-top: 4rem; }
+.tour-category-title { font-size: clamp(1.5rem, 2.6vw, 2.2rem); margin: 0 0 1.25rem; }
+.tour-category-nav { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 3rem; }
+.tour-category-nav a { border: 1px solid #c7c0b4; border-radius: 999px; font-size: .74rem; font-weight: 600; letter-spacing: .09em; padding: .7rem 1.2rem; text-transform: uppercase; transition: background var(--transition-fast), color var(--transition-fast); }
+.tour-category-nav a:hover { background: var(--color-background-dark); color: var(--color-white); }
+.load-more { display: flex; justify-content: center; margin-top: 2.5rem; }

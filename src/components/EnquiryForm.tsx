@@ -47,7 +47,7 @@ export default function EnquiryForm({ form, destinations, compact = false }: Pro
         <label>{form.ridersLabel}<input required min="1" type="number" name="riders" /></label>
       </div>
       <div className="form-row">
-        <label>{form.datesLabel}<input name="dates" placeholder={form.datesPlaceholder} /></label>
+        <label>{form.datesLabel}<input type="date" name="dates" suppressHydrationWarning min={new Date().toISOString().slice(0, 10)} /></label>
         <label>{form.durationLabel}<input name="duration" placeholder={form.durationPlaceholder} /></label>
       </div>
       <div className="form-row">

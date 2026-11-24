@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import LoadMore from "@/components/LoadMore"
 import Shell from "@/components/Shell"
 import { Breadcrumbs, PageHero } from "@/components/sections"
 import { Icon } from "@/icons"
@@ -23,7 +24,7 @@ export default async function Page() {
             <h2><RichTitle text={page.grid.title} /></h2>
             <p>{page.grid.description}</p>
           </div>
-          <div className="destination-page-grid">
+          <LoadMore className="destination-page-grid" label={settings.labels.loadMore}>
             {destinations.map((destination, index) => (
               <a className={`destination-page-card destination-page-card-${index + 1}`} href={`/destinations/${destination.slug}`} key={destination.slug}>
                 <img src={src(destination.image)} alt={alt(destination.image, destination.title)} loading={index > 2 ? "lazy" : undefined} />
@@ -37,7 +38,7 @@ export default async function Page() {
                 </div>
               </a>
             ))}
-          </div>
+          </LoadMore>
           <div className="permission-callout">
             <Icon name="shield" />
             <div><strong>{page.callout.title}</strong><p>{page.callout.text}</p></div>

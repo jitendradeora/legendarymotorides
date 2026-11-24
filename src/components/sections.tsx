@@ -1,4 +1,5 @@
 import { Icon } from "../icons"
+import LoadMore from "./LoadMore"
 import { alt, RichTitle, serializeJson, src } from "../lib/format"
 import type { Cta, Hero, Img, IntroBlock, Tour } from "../lib/types"
 
@@ -65,5 +66,32 @@ export function TourRow({ tour }: { tour: Pick<Tour, "slug" | "title" | "duratio
       <div><small>{tour.duration} · {tour.distance}</small><h2>{tour.title}</h2><p>{tour.description}</p></div>
       <Icon name="arrow" />
     </a>
+  )
+}
+
+/** Tours grouped by category (in the order the categories first appear), each group with its own "load more". */
+export function TourList({ tours, loadMoreLabel }: { tours: Tour[]; loadMoreLabel: string }) {
+  const groups: { slug: string; name: string; tours: Tour[] }[] = []
+  for (const tour of tours) {
+    const category = tour.categories[0] ?? { slug: "", name: "" }
+    let group = groups.find((g) => g.slug === category.slug)
+    if (!group) groups.push((group = { ...category, tours: [] }))
+    group.tours.push(tour)
+  }
+  const named = groups.filter((g) => g.name)
+  return (
+    <>
+      {named.length > 1 ? (
+        <nav className="tour-category-nav">
+          {named.map((g) => <a key={g.slug} href={`#${g.slug}`}>{g.name}</a>)}
+        </nav>
+      ) : null}
+      {groups.map((group) => (
+        <section className="tour-category" id={group.slug || undefined} key={group.slug || "all"}>
+          {group.name ? <h2 className="tour-category-title">{group.name}</h2> : null}
+          <LoadMore label={loadMoreLabel}>{group.tours.map((tour) => <TourRow key={tour.slug} tour={tour} />)}</LoadMore>
+        </section>
+      ))}
+    </>
   )
 }

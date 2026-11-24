@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import LoadMore from "@/components/LoadMore"
 import Shell from "@/components/Shell"
 import { Breadcrumbs, PageHero } from "@/components/sections"
 import { Icon } from "@/icons"
@@ -18,7 +19,7 @@ export default async function Page() {
       <section className="insights-page page-section section-light">
         <div className="container">
           <Breadcrumbs homeLabel={settings.labels.home} items={[{ label: page.breadcrumbLabel }]} />
-          <div className="insight-grid">
+          <LoadMore className="insight-grid" label={settings.labels.loadMore}>
             {insights.map((article, index) => (
               <a className="insight-card" href={`/insights/${article.slug}`} key={article.slug}>
                 <img src={src(article.image)} alt="" />
@@ -30,7 +31,7 @@ export default async function Page() {
                 </div>
               </a>
             ))}
-          </div>
+          </LoadMore>
         </div>
       </section>
     </Shell>
