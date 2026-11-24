@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Icon } from "../icons"
-import { videoTestimonials } from "../lib/content"
+import type { Video } from "../lib/types"
 
-export default function VideoTestimonials() {
-  const [active, setActive] = useState<(typeof videoTestimonials)[number] | null>(null)
+type Props = { videos: Video[]; playLabel: string; closeLabel: string }
+
+export default function VideoTestimonials({ videos, playLabel, closeLabel }: Props) {
+  const [active, setActive] = useState<Video | null>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
@@ -18,11 +20,11 @@ export default function VideoTestimonials() {
   return (
     <>
       <div className="video-grid">
-        {videoTestimonials.map((video) => (
-          <article className="video-card" key={video.id}>
+        {videos.map((video) => (
+          <article className="video-card" key={video.youtubeId}>
             <div className="video-frame">
-              <button aria-label={`Play ${video.title}`} className="video-play" type="button" onClick={() => setActive(video)}>
-                <img src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt="" />
+              <button aria-label={`${playLabel} ${video.title}`} className="video-play" type="button" onClick={() => setActive(video)}>
+                <img src={`https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`} alt="" />
                 <i aria-hidden="true"><Icon name="youtube" size={22} /></i>
               </button>
             </div>
@@ -41,14 +43,14 @@ export default function VideoTestimonials() {
       >
         {active ? (
           <div className="video-dialog-panel">
-            <button aria-label="Close video" className="video-dialog-close" type="button" onClick={() => dialogRef.current?.close()}>
+            <button aria-label={closeLabel} className="video-dialog-close" type="button" onClick={() => dialogRef.current?.close()}>
               <Icon name="close" size={18} />
             </button>
             <div className="video-dialog-frame">
               <iframe
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                src={`https://www.youtube-nocookie.com/embed/${active.id}?autoplay=1`}
+                src={`https://www.youtube-nocookie.com/embed/${active.youtubeId}?autoplay=1`}
                 title={active.title}
               />
             </div>

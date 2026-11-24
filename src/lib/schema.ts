@@ -1,102 +1,83 @@
-import { siteConfig } from "./site-config"
+import { siteUrl } from "./seo"
+import type { Img, SiteSettings } from "./types"
 
-const organizationId = `${siteConfig.url}/#organization`
+const organizationId = () => `${siteUrl()}/#organization`
 
-export function getSiteSchema() {
+export function getSiteSchema(settings: SiteSettings) {
+  const { brand, contact, seoDefaults, socialLinks } = settings
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": ["Organization", "TravelAgency"],
-        "@id": organizationId,
-        name: siteConfig.legalName,
-        url: `${siteConfig.url}/`,
-        description: siteConfig.description,
-        logo: `${siteConfig.url}/images/logo.webp`,
-        image: `${siteConfig.url}/images/hero-rider.webp`,
-        email: [siteConfig.email, siteConfig.alternateEmail],
-        telephone: siteConfig.phones,
-        sameAs: siteConfig.socialLinks.map((social) => social.url),
+        "@id": organizationId(),
+        name: brand.legalName,
+        url: `${siteUrl()}/`,
+        description: seoDefaults.description,
+        ...(brand.logo ? { logo: brand.logo.sourceUrl } : {}),
+        ...(seoDefaults.shareImage ? { image: seoDefaults.shareImage.sourceUrl } : {}),
+        email: [contact.email, contact.alternateEmail].filter(Boolean),
+        telephone: contact.phones.map((phone) => phone.display),
+        sameAs: socialLinks.map((social) => social.url),
         address: {
           "@type": "PostalAddress",
-          ...siteConfig.address,
+          streetAddress: contact.street,
+          addressLocality: contact.locality,
+          postalCode: contact.postalCode,
+          addressCountry: contact.countryCode,
         },
       },
       {
         "@type": "WebSite",
-        "@id": `${siteConfig.url}/#website`,
-        url: `${siteConfig.url}/`,
-        name: siteConfig.name,
-        description: siteConfig.description,
-        publisher: { "@id": organizationId },
-        inLanguage: "en-IN",
+        "@id": `${siteUrl()}/#website`,
+        url: `${siteUrl()}/`,
+        name: brand.siteName,
+        description: seoDefaults.description,
+        publisher: { "@id": organizationId() },
+        inLanguage: seoDefaults.locale.replace("_", "-"),
       },
     ],
   }
 }
 
-export function getHomeSchema() {
-  return getSiteSchema()
-}
-
-export function getFaqSchema(faqs: readonly (readonly string[])[]) {
+export function getFaqSchema(faqs: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map(([question, answer]) => ({
-      "@type": "Question",
-      name: question,
-      acceptedAnswer: { "@type": "Answer", text: answer },
-    })),
+    mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
   }
 }
 
 export function getBreadcrumbSchema(items: { name: string; path: string }[]) {
   return {
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: `${siteConfig.url}${item.path}`,
-    })),
+    itemListElement: items.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, item: `${siteUrl()}${item.path}` })),
   }
 }
 
-export function getTourSchema(tour: {
-  name: string
-  description: string
-  image: string
-  path: string
-  areaServed: string
-}) {
+export function getTourSchema(tour: { name: string; description: string; image: Img; path: string; areaServed: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: tour.name,
     description: tour.description,
-    url: `${siteConfig.url}${tour.path}`,
-    image: `${siteConfig.url}${tour.image}`,
-    provider: { "@id": organizationId },
+    url: `${siteUrl()}${tour.path}`,
+    ...(tour.image ? { image: tour.image.sourceUrl } : {}),
+    provider: { "@id": organizationId() },
     itinerary: { "@type": "Place", name: tour.areaServed },
   }
 }
 
-export function getArticleSchema(article: {
-  title: string
-  description: string
-  image: string
-  path: string
-}) {
+export function getArticleSchema(article: { title: string; description: string; image: Img; path: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    image: `${siteConfig.url}${article.image}`,
-    mainEntityOfPage: `${siteConfig.url}${article.path}`,
-    author: { "@id": organizationId },
-    publisher: { "@id": organizationId },
+    ...(article.image ? { image: article.image.sourceUrl } : {}),
+    mainEntityOfPage: `${siteUrl()}${article.path}`,
+    author: { "@id": organizationId() },
+    publisher: { "@id": organizationId() },
   }
 }
 

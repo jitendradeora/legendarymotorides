@@ -2,48 +2,37 @@
 
 import { useState } from "react"
 import { Icon } from "../icons"
+import type { SiteSettings } from "../lib/types"
 import { Brand } from "./Brand"
 import { SocialLinks } from "./SocialLinks"
 
-const links = [
-  ["Destinations", "/destinations"],
-  ["Tours", "/motorcycle-tours"],
-  ["Tour calendar", "/tour-calendar"],
-  ["Insights", "/insights"],
-  ["Gallery", "/gallery"],
-  ["About", "/about"],
-  ["Contact", "/contact"],
-]
+type Props = {
+  variant?: "home" | "page"
+  brand: SiteSettings["brand"]
+  header: SiteSettings["header"]
+  socialLinks: SiteSettings["socialLinks"]
+  labels: SiteSettings["labels"]
+}
 
-export default function Header({ variant = "page" }: { variant?: "home" | "page" }) {
+export default function Header({ variant = "page", brand, header, socialLinks, labels }: Props) {
   const [open, setOpen] = useState(false)
+  const toggleLabel = open ? labels.menuClose : labels.menuOpen
+  const close = () => setOpen(false)
 
   if (variant === "home") {
     return (
       <header className="header">
         <div className="header-inner">
-          <Brand href="/" />
+          <Brand href="/" logo={brand.logo} siteName={brand.siteName} />
           <nav className={open ? "nav nav-open" : "nav"} aria-label="Main navigation">
-            {links.map(([label, href]) => (
-              <a href={href} key={href} onClick={() => setOpen(false)}>
-                {label}
-              </a>
+            {header.navLinks.map((link) => (
+              <a href={link.url} key={link.url} onClick={close}>{link.label}</a>
             ))}
-            <a className="mobile-enquire" href="/custom-tours" onClick={() => setOpen(false)}>
-              Plan your ride
-            </a>
-            <SocialLinks className="social-links mobile-socials" />
+            <a className="mobile-enquire" href={header.ctaUrl} onClick={close}>{header.ctaLabel}</a>
+            <SocialLinks links={socialLinks} className="social-links mobile-socials" />
           </nav>
-          <a className="button button-primary page-header-cta" href="/custom-tours">
-            Plan your ride
-          </a>
-          <button
-            aria-expanded={open}
-            aria-label={open ? "Close navigation" : "Open navigation"}
-            className="menu-button"
-            onClick={() => setOpen(!open)}
-            type="button"
-          >
+          <a className="button button-primary page-header-cta" href={header.ctaUrl}>{header.ctaLabel}</a>
+          <button aria-expanded={open} aria-label={toggleLabel} className="menu-button" onClick={() => setOpen(!open)} type="button">
             <Icon name={open ? "close" : "menu"} size={32} />
           </button>
         </div>
@@ -54,25 +43,15 @@ export default function Header({ variant = "page" }: { variant?: "home" | "page"
   return (
     <header className="page-header">
       <div className="container page-header-inner">
-        <Brand />
+        <Brand logo={brand.logo} siteName={brand.siteName} />
         <nav className={open ? "page-nav page-nav-open" : "page-nav"} aria-label="Main navigation">
-          {links.map(([label, href]) => (
-            <a href={href} key={href} onClick={() => setOpen(false)}>
-              {label}
-            </a>
+          {header.navLinks.map((link) => (
+            <a href={link.url} key={link.url} onClick={close}>{link.label}</a>
           ))}
-          <SocialLinks className="social-links social-links-compact" />
+          <SocialLinks links={socialLinks} className="social-links social-links-compact" />
         </nav>
-        <a className="button button-primary page-header-cta" href="/custom-tours">
-          Plan your ride
-        </a>
-        <button
-          className="page-menu"
-          type="button"
-          aria-expanded={open}
-          aria-label={open ? "Close navigation" : "Open navigation"}
-          onClick={() => setOpen(!open)}
-        >
+        <a className="button button-primary page-header-cta" href={header.ctaUrl}>{header.ctaLabel}</a>
+        <button className="page-menu" type="button" aria-expanded={open} aria-label={toggleLabel} onClick={() => setOpen(!open)}>
           <Icon name={open ? "close" : "menu"} size={32} />
         </button>
       </div>

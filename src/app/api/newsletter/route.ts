@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
-import { postToWordPress } from "@/lib/wordpress"
+import { getSettings } from "@/lib/api"
+import { submitContactForm } from "@/lib/wp"
 
 export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => null)) as { email?: string } | null
@@ -8,6 +9,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Enter a valid email address." }, { status: 400 })
   }
 
-  const forwarded = await postToWordPress("/lmr/v1/newsletter", { email })
-  return NextResponse.json({ ok: true, forwarded })
+  const settings = await getSettings()
+  const result = await submitContactForm(settings.forms.newsletterFormId, { email })
+  return NextResponse.json({ ok: result.ok, message: result.message }, { status: result.ok ? 200 : 502 })
 }

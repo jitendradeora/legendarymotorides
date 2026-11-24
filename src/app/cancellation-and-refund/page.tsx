@@ -1,11 +1,7 @@
-import type { Metadata } from "next"
-import { CancellationPage } from "@/components/SitePages"
+import PolicyPage, { policyMetadata } from "@/components/PolicyPage"
 
-export const metadata: Metadata = {
-  title: "Cancellation and refunds",
-  description: "Cancellation guidance for Legendary Moto Rides motorcycle tours.",
-}
+export const generateMetadata = () => policyMetadata("cancellation-and-refund")
 
 export default function Page() {
-  return <CancellationPage />
+  return <PolicyPage slug="cancellation-and-refund" />
 }

@@ -1,33 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
-import { postToWordPress } from "@/lib/wordpress"
+import { getSettings } from "@/lib/api"
+import { submitContactForm } from "@/lib/wp"
 
-type JoinTourRequest = {
-  name?: string
-  email?: string
-  phone?: string
-  tour?: string
-  dates?: string
-  riders?: string
-  message?: string
-}
+const FIELDS = ["name", "email", "phone", "riders", "tour", "dates", "message"]
 
+/** "Join tour" request, delivered through Contact Form 7. */
 export async function POST(request: NextRequest) {
-  const body = (await request.json().catch(() => null)) as JoinTourRequest | null
-  const name = body?.name?.trim() ?? ""
-  const email = body?.email?.trim() ?? ""
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null
+  const name = String(body?.name ?? "").trim()
+  const email = String(body?.email ?? "").trim()
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ message: "Name and a valid email are required." }, { status: 400 })
   }
 
-  const forwarded = await postToWordPress("/lmr/v1/join-tour", {
-    name,
-    email,
-    phone: body?.phone?.trim() ?? "",
-    tour: body?.tour?.trim() ?? "",
-    dates: body?.dates?.trim() ?? "",
-    riders: body?.riders?.trim() ?? "",
-    message: body?.message?.trim() ?? "",
-  })
-
-  return NextResponse.json({ ok: true, forwarded })
+  const fields = Object.fromEntries(FIELDS.map((key) => [key, String(body?.[key] ?? "").trim()]))
+  const settings = await getSettings()
+  const result = await submitContactForm(settings.forms.joinFormId, fields)
+  return NextResponse.json({ ok: result.ok, message: result.message }, { status: result.ok ? 200 : 502 })
 }

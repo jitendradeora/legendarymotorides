@@ -1,7 +1,9 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { Icon } from "../icons"
 
-export default function MoveToTop() {
+export default function MoveToTop({ label }: { label: string }) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function MoveToTop() {
 
   return (
     <button
-      aria-label="Move to top"
+      aria-label={label}
       className={visible ? "move-top move-top-visible" : "move-top"}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       type="button"

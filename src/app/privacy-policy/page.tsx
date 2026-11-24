@@ -1,11 +1,7 @@
-import type { Metadata } from "next"
-import { PrivacyPage } from "@/components/SitePages"
+import PolicyPage, { policyMetadata } from "@/components/PolicyPage"
 
-export const metadata: Metadata = {
-  title: "Privacy policy",
-  description: "How Legendary Moto Rides handles enquiry information.",
-}
+export const generateMetadata = () => policyMetadata("privacy-policy")
 
 export default function Page() {
-  return <PrivacyPage />
+  return <PolicyPage slug="privacy-policy" />
 }

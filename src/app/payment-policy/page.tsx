@@ -1,11 +1,7 @@
-import type { Metadata } from "next"
-import { PaymentPolicyPage } from "@/components/SitePages"
+import PolicyPage, { policyMetadata } from "@/components/PolicyPage"
 
-export const metadata: Metadata = {
-  title: "Payment policy",
-  description: "How deposits and balances work for a Legendary Moto Rides booking.",
-}
+export const generateMetadata = () => policyMetadata("payment-policy")
 
 export default function Page() {
-  return <PaymentPolicyPage />
+  return <PolicyPage slug="payment-policy" />
 }

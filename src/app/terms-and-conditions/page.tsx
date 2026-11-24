@@ -1,11 +1,7 @@
-import type { Metadata } from "next"
-import { TermsPage } from "@/components/SitePages"
+import PolicyPage, { policyMetadata } from "@/components/PolicyPage"
 
-export const metadata: Metadata = {
-  title: "Terms and conditions",
-  description: "Booking terms for Legendary Moto Rides motorcycle tours.",
-}
+export const generateMetadata = () => policyMetadata("terms-and-conditions")
 
 export default function Page() {
-  return <TermsPage />
+  return <PolicyPage slug="terms-and-conditions" />
 }
